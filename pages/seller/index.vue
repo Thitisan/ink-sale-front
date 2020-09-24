@@ -71,7 +71,7 @@
           .then(value => {
             if(value){
               this.$http.delete(`sellers/${id}/delete`)
-              this.getInks()
+              this.getsellers()
             }else{
 
             }

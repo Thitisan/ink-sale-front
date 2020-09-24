@@ -10,6 +10,7 @@
         <b-nav-item href="/customers">add customer</b-nav-item>
         <b-nav-item href="/inks">add inks</b-nav-item>
         <b-nav-item href="/seller">add seller</b-nav-item>
+        <b-nav-item href="/bill">add bill</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

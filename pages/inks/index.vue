@@ -25,6 +25,10 @@
        <b-button variant="outline-primary" @click="add(inkName,price)">add</b-button>
        <b-button variant="outline-primary" @click="cancel()">cancel</b-button>
     </div>
+
+    <div>
+      <b-table striped hover :items="inks" :fields="fields"></b-table>
+    </div>
   </div>
 </template>
 
@@ -32,6 +36,7 @@
   export default {
     data() {
       return {
+        fields: ['name', 'price'],
         inks: [],
         inkName:"",
         price:0,
@@ -84,6 +89,8 @@
                 price: price,
             })
         this.checkAddInk = false
+        this.inkName=""
+        this.price=0
         this.getInks()
       },
       cancel(){
