@@ -54,9 +54,9 @@ export default {
         strategies: {
             local: {
                 endpoints: {
-                    login: { url: 'http://localhost:7000/api/login/login', method: 'post', propertyName: 'token' },
-                    logout: { url: 'http://localhost:7000/api/login/logout', method: 'post' },
-                    user: { url: 'http://localhost:7000/api/login/user', method: 'get', propertyName: 'user' },
+                    login: { url: 'http://127.0.0.1:8000/api/login', method: 'post', propertyName: 'token' },
+                    logout: { url: 'http://127.0.0.1:8000/api/logout', method: 'get' ,propertyName: 'token'},
+                    user: { url: 'http://127.0.0.1:8000/api/user', method: 'get', propertyName: 'user' },
                 },
                 tokenName: 'authorization',
                 tokenType: false

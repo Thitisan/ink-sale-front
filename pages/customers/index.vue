@@ -3,15 +3,15 @@
     <ul>
       <li v-for="customer in customers" :key="customer.id">
         <p v-if="check !== customer.id">
-          {{customer.name}} address:{{ customer.address }} phone:{{customer.phone}}
+          {{customer.customer_name}} address:{{ customer.customer_address }} phone:{{customer.customer_phone}}
           <b-button variant="outline-primary" @click="edit(customer.id)">Edit ink</b-button>
-          <b-button variant="outline-primary" @click="deleteCustomer(customer.id , customer.name)">Delete customer</b-button>
+          <b-button variant="outline-primary" @click="deleteCustomer(customer.id , customer.customer_name)">Delete customer</b-button>
         </p>
         <p v-else>
-          name:<b-form-input v-model="customer.name" placeholder="name"></b-form-input>
-          nick name:<b-form-input v-model="customer.address" placeholder="address"></b-form-input>
-          phone:<b-form-input v-model="customer.phone" placeholder="phone"></b-form-input>
-          <b-button variant="outline-primary" @click="save(customer.id,customer.name,customer.address,customer.phone)">save</b-button>
+          name:<b-form-input v-model="customer.customer_name" placeholder="name"></b-form-input>
+          Address:<b-form-input v-model="customer.customer_address" placeholder="address"></b-form-input>
+          phone:<b-form-input v-model="customer.customer_phone" placeholder="phone"></b-form-input>
+          <b-button variant="outline-primary" @click="save(customer.id,customer.customer_name,customer.customer_address,customer.customer_phone)">save</b-button>
           <b-button variant="outline-primary" @click="cancelEdit()">cancel</b-button>
         </p>
 
@@ -20,9 +20,9 @@
     <b-button variant="outline-primary" @click="addCustomer()">Add customer</b-button>
     <div v-if="checkAdd !== false">
       name:<b-form-input v-model="customerName" placeholder="name"></b-form-input>
-      nick name:<b-form-input v-model="customerAddress" placeholder="address"></b-form-input>
+      Address:<b-form-input v-model="customerAddress" placeholder="address"></b-form-input>
       phone:<b-form-input v-model="customerPhone" placeholder="phone"></b-form-input>
-      <b-button variant="outline-primary" @click="add(customerName,customerAddress,customerPhone)">add</b-button>
+      <b-button variant="outline-primary" @click="add()">add</b-button>
       <b-button variant="outline-primary" @click="cancel()">cancel</b-button>
     </div>
   </div>
@@ -78,11 +78,11 @@
             // An error occurred
           })
       },
-      async add(name,address,phone){
+      async add(){
         let res = await this.$http.post('/customers/create', {
-                name:name,
-                address:address,
-                phone:phone,
+                name:this.customerName,
+                address:this.customerAddress,
+                phone:this.customerPhone,
             })
         this.checkAdd = false
         this.getCustomer()

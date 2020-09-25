@@ -3,14 +3,14 @@
     <ul>
       <li v-for="ink in inks" :key="ink.id">
         <p v-if="check !== ink.id">
-          {{ink.name}} price:{{ ink.price }}
+          {{ink.ink_name}} price:{{ ink.ink_price }}
           <b-button variant="outline-primary" @click="edit(ink.id)">Edit ink</b-button>
-          <b-button variant="outline-primary" @click="deleteInk(ink.id , ink.name)">Delete ink</b-button>
+          <b-button variant="outline-primary" @click="deleteInk(ink.id , ink.ink_name)">Delete ink</b-button>
         </p>
         <p v-else>
-          name:<b-form-input v-model="ink.name" placeholder="name"></b-form-input>
-          price:<b-form-input v-model="ink.price" placeholder="price"></b-form-input>
-          <b-button variant="outline-primary" @click="save(ink.id,ink.name,ink.price)">save</b-button>
+          name:<b-form-input v-model="ink.ink_name" placeholder="name"></b-form-input>
+          price:<b-form-input v-model="ink.ink_price" placeholder="price"></b-form-input>
+          <b-button variant="outline-primary" @click="save(ink.id,ink.ink_name,ink.ink_price)">save</b-button>
           <b-button variant="outline-primary" @click="cancelEdit()">cancel</b-button>
         </p>
 
@@ -22,7 +22,7 @@
        v-model="inkName"></b-form-input>
        <b-form-input placeholder="price"
        v-model="price"></b-form-input>
-       <b-button variant="outline-primary" @click="add(inkName,price)">add</b-button>
+       <b-button variant="outline-primary" @click="add()">add</b-button>
        <b-button variant="outline-primary" @click="cancel()">cancel</b-button>
     </div>
 
@@ -34,9 +34,10 @@
 
 <script>
   export default {
+
     data() {
       return {
-        fields: ['name', 'price'],
+        fields: ['ink_name', 'ink_price'],
         inks: [],
         inkName:"",
         price:0,
@@ -82,11 +83,10 @@
             // An error occurred
           })
       },
-      async add(name,price){
-        console.log('name:',name," price: ",price)
+      async add(){
         let res = await this.$http.post('/inks/create', {
-                name: name,
-                price: price,
+                name: this.inkName,
+                price: this.price,
             })
         this.checkAddInk = false
         this.inkName=""
@@ -105,8 +105,8 @@
       save(id,name,price){
         this.$http.put(`/inks/update/${id}`,{
                 id: `${id}`,
-                name: name,
-                price:price
+                ink_name: name,
+                ink_price:price
             }).then(value =>{
                 if(value){
                     this.check = false
